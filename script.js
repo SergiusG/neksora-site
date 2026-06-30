@@ -63,14 +63,32 @@ form?.addEventListener('submit', (event) => {
   const object = data.get('object');
   const message = data.get('message');
 
-  // TODO: Replace with real backend (Telegram bot / email / CRM)
-  console.log('Form submission:', { name, phone, object, message });
+  // Send to backend
+  formNote.textContent = 'Отправка...';
+  formNote.className = 'form-note';
 
-  formNote.textContent = 'Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
-  formNote.className = 'form-note success';
-  form.reset();
+  fetch('https://app.fravart.ru/neksora/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, phone, object, message })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      formNote.textContent = 'Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
+      formNote.className = 'form-note success';
+      form.reset();
+    } else {
+      formNote.textContent = 'Ошибка отправки. Попробуйте позвонить или написать в мессенджер.';
+      formNote.className = 'form-note error';
+    }
+  })
+  .catch(() => {
+    formNote.textContent = 'Ошибка сети. Попробуйте позвонить или написать в мессенджер.';
+    formNote.className = 'form-note error';
+  });
 
-  // Clear success message after 5s
+  // Clear message after 5s
   setTimeout(() => {
     formNote.textContent = '';
     formNote.className = 'form-note';
