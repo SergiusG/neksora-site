@@ -444,7 +444,7 @@ input:focus, select:focus, textarea:focus {
   .site-nav.is-open { display: flex; }
   .site-nav a { padding: 16px; background: rgba(255,255,255,.045); }
 
-  .hero { min-height: auto; padding: 140px 0 78px; }
+  .hero { min-height: auto; padding: 160px 0 78px; }
   .hero-inner { grid-template-columns: 1fr; gap: 42px; }
   .process-layout { grid-template-columns: 1fr; }
   .process-copy { position: static; }
