@@ -66,6 +66,7 @@ form?.addEventListener('submit', (event) => {
   // Send to backend
   formNote.textContent = 'Отправка...';
   formNote.className = 'form-note';
+  console.log('Отправляем:', { name, phone, object, message });
 
   fetch('https://app.fravart.ru/neksora/contact', {
     method: 'POST',

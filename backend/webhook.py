@@ -94,7 +94,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"error": str(e)}).encode())
 
     def log_message(self, format, *args):
-        pass  # Silence logs
+        print(format % args)
 
 if __name__ == "__main__":
     server = http.server.HTTPServer(("127.0.0.1", 8077), Handler)
