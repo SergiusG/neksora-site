@@ -39,9 +39,6 @@ def send_telegram(text):
 class Handler(http.server.BaseHTTPRequestHandler):
     def do_OPTIONS(self):
         self.send_response(204)
-        self.send_header("Access-Control-Allow-Origin", "https://neksora.pro")
-        self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
     def do_POST(self):
@@ -62,7 +59,6 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if not name or not phone:
                 self.send_response(400)
                 self.send_header("Content-Type", "application/json")
-                self.send_header("Access-Control-Allow-Origin", "https://neksora.pro")
                 self.end_headers()
                 self.wfile.write(json.dumps({"error": "Имя и телефон обязательны"}).encode())
                 return
@@ -82,14 +78,12 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "https://neksora.pro")
             self.end_headers()
             self.wfile.write(json.dumps({"ok": True}).encode())
 
         except Exception as e:
             self.send_response(500)
             self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "https://neksora.pro")
             self.end_headers()
             self.wfile.write(json.dumps({"error": str(e)}).encode())
 

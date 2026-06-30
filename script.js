@@ -63,15 +63,23 @@ form?.addEventListener('submit', (event) => {
   const object = data.get('object');
   const message = data.get('message');
 
-  // Send to backend
+  // Send to Telegram
   formNote.textContent = 'Отправка...';
   formNote.className = 'form-note';
-  console.log('Отправляем:', { name, phone, object, message });
 
-  fetch('https://app.fravart.ru/neksora/contact', {
+  const botToken = atob('ODYzNjAyNjYwNTpBQUVHdl9wM3N1TkVkdVl4bWx4MERqS1lXYzF5dkVUN2xQdw==');
+  const chatId = '419186486';
+
+  let text = '🔔 <b>Новая заявка с сайта neksora.pro</b>\n\n';
+  text += '👤 <b>' + name + '</b>\n';
+  text += '📞 ' + phone + '\n';
+  if (object) text += '🏠 ' + object + '\n';
+  if (message) text += '\n📝 ' + message + '\n';
+
+  fetch('https://api.telegram.org/bot' + botToken + '/sendMessage', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, phone, object, message })
+    body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' })
   })
   .then(r => r.json())
   .then(data => {
