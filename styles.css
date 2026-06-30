@@ -458,6 +458,8 @@ input:focus, select:focus, textarea:focus {
 @media (max-width: 680px) {
   .container { width: min(100% - 28px, 1180px); }
   .section { padding: 70px 0; }
+  .hero { padding-top: 180px; }
+  .eyebrow { display: none; }
   .brand-text small { display: none; }
   .brand-text strong { font-size: 16px; }
   .site-header { top: 10px; width: calc(100% - 20px); border-radius: 18px; }
